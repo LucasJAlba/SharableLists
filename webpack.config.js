@@ -1,5 +1,5 @@
 module.exports = {
-    entry: "./app/app.js",
+    entry: "./app/scripts/app.js",
     output: {
         path: __dirname,
         filename: "./app/bundle.js"
@@ -18,7 +18,7 @@ module.exports = {
         preLoaders: [
         {
             test: /\.js$/,
-            exclude: /node_modules/,
+            exclude: /(node_modules|spec)/,
             loader: 'jshint-loader'
 
         }
