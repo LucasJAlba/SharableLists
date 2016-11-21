@@ -1,31 +1,43 @@
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
-    entry: "./app/app.js",
+    entry: {
+        app: "./app/main.ts",
+        vendor : "./app/vendor.ts"
+    },
     output: {
-        path: __dirname,
-        filename: "./app/bundle.js"
+        path: 'dist',
+        filename: "[name].js"
     },
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.ts$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['es2015'] 
-                }
+                loaders: ['awesome-typescript-loader']
             }
         ],
         preLoaders: [
-        {
-            test: /\.js$/,
+         /*{
+           test: /\.ts$/,
             exclude: /node_modules/,
             loader: 'jshint-loader'
 
-        }
+        }*/
     ],
     },
     resolve: {
-        extensions: ['', '.js', '.es6']
+        extensions: ['', '.ts', '.js']
     },
+    plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ['app', 'vendor']
+    }),
+
+    new HtmlWebpackPlugin({
+      template: 'app/index.html'
+    })
+  ],
     watch: true
 };
