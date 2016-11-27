@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
                 <a routerLink="/all" routerLinkActive="active">Home</a>
                 <a routerLink="/list" routerLinkActive="active">One List</a>
                 <a routerLink="/settings" routerLinkActive="active">Settings</a>
-            </nav>`
+            </nav>`,
+  styles: [String(require("./nav.component.scss"))]
 })
 export class NavComponent { }

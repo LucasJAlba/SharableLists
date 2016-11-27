@@ -8,7 +8,8 @@ import { SettingsComponent } from './settings/settings.component';
 const appRoutes: Routes = [
   { path: 'all', component: AllListViewComponent },
   { path: 'list', component: OneListViewComponent },
-  { path: 'settings', component: SettingsComponent }
+  { path: 'settings', component: SettingsComponent },
+  { path: '', component: AllListViewComponent }
 ];
 
 @NgModule({
