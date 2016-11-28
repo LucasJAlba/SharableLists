@@ -1,5 +1,5 @@
 <h1>All Lists view page</h1>
-<h2>List[]</h2>
+<h2>All lists</h2>
 <ul class="listItems">
   <li *ngFor="let list of lists; trackBy:trackByLists">
     <span class="listName"><a (click)="onSelect(list)">{{ list.name }}</a></span>
@@ -15,7 +15,7 @@
 
 <br />
 
-<h2>Observable&lt;List[]&gt;</h2>
+<h2>Search Lists</h2>
 <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
 <ul class="listItems">
   <li *ngFor="let list of searchLists | async; trackBy:trackByLists">
