@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AllListViewComponent } from './allListView.component';
-import { OneListViewComponent } from './oneListView.component';
+import { AllListViewComponent } from './all-list-view.component';
+import { OneListViewComponent } from './one-list-view.component';
 import { SettingsComponent } from './settings/settings.component';
 
 const appRoutes: Routes = [

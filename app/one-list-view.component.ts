@@ -1,7 +1,9 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { List, ListService } from './lists/list.service';
+
+import { List } from './lists/list';
+import { ListService } from './lists/list.service';
 
 import { ActivatedRoute, Router, Params } from '@angular/router';
 @Component({

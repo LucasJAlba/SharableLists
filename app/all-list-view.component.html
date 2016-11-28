@@ -1,0 +1,17 @@
+<div>All Lists view page</div>
+<ul class="listItems">
+  <li *ngFor="let list of lists | async; trackBy:trackByLists">
+    <span class="listName"><a (click)="onSelect(list)">{{ list.name }}</a></span>
+  </li>
+</ul>
+<br />
+
+<div>
+	TODO: remove
+	<br />
+	<label>List name:</label> 
+	<input #listName />
+	<button (click)="add(listName.value); listName.value = ''">
+		Add
+	</button>
+</div>
