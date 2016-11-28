@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
@@ -18,6 +19,7 @@ import { SettingsComponent } from './settings/settings.component';
 @NgModule({
   imports: [
     BrowserModule,
+    FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
     AppRoutingModule

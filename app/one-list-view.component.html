@@ -1,0 +1,12 @@
+<h1>Individual List View</h1>
+<div *ngIf="list">
+  	<h2>List {{list.name}} details</h2>
+  	<div>
+  		<label>id: </label>{{list.id}}
+  	</div>
+  	<div>
+  		<label>name: </label>
+  		<input [(ngModel)]="list.name" placeholder="name">
+  	</div>
+  	<button (click)="save()">Save</button>
+</div>

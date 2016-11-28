@@ -2,14 +2,20 @@
 <h2>All lists</h2>
 <ul class="listItems">
   <li *ngFor="let list of lists; trackBy:trackByLists">
-    <span class="listName"><a (click)="onSelect(list)">{{ list.name }}</a></span>
+    <span class="listName"><a (click)="onSelect(list)">id: {{ list.id }}, name: {{ list.name }}</a></span>
   </li>
 </ul>
 <div>
 	<label>List name:</label> 
-	<input #listName />
-	<button (click)="add(listName.value); listName.value = ''; search(searchBox.value);">
+	<input #listNameAdd />
+	<button (click)="add(listNameAdd.value); listNameAdd.value = '';">
 		Add
+	</button>
+	<br />
+	<label>List id:</label> 
+	<input #listIdDelete />
+	<button (click)="delete(listIdDelete.value); listIdDelete.value = ''; $event.stopPropagation()">
+		Remove
 	</button>
 </div>
 

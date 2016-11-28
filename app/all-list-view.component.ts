@@ -61,6 +61,17 @@ export class AllListViewComponent implements OnInit {
   }
 
   // TODO: remove? (here for development of list service)
+  delete(id: number | string): void {
+    this.listService.deleteList(id)
+      .then(() => {
+        this.lists = this.lists.filter(l => l.id != id);
+        if (this.selectedList && this.selectedList.id === id) {
+          this.selectedList = null;
+        }
+      });
+  }
+
+  // TODO: remove? (here for development of list service)
   search(term: string): void {
     this.searchTerms.next(term);
   }

@@ -41,6 +41,21 @@ export class ListService {
       .catch(this.handleError);
   }
 
+  deleteList(id: number | string): Promise<void> {
+    id = +id;
+    return this.http.delete(`${this.listUrl}/${id}`, {headers : this.headers})
+      .toPromise()
+      .then(() => {})
+      .catch(this.handleError);
+  }
+
+  updateList(list: List): Promise<List> {
+    return this.http.put(`${this.listUrl}/${list.id}`, JSON.stringify(list), {headers : this.headers})
+      .toPromise()
+      .then(() => list)
+      .catch(this.handleError);
+  }
+
   search(term: string): Observable<List[]> {
     return this.http
       .get(`${this.listUrl}/?name=${term}`)
