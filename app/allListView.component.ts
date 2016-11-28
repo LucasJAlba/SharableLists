@@ -1,4 +1,3 @@
-import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -8,7 +7,7 @@ import { List, ListService } from './lists/list.service';
   template: `<div>All Lists view page</div>
     <ul class="listItems">
       <li *ngFor="let list of lists | async">
-        <span class="listName">{{ list.name }}</span>
+        <span class="listName"><a (click)="onSelect(list)">{{ list.name }}</a></span>
       </li>
     </ul>`,
   providers: [ListService]
@@ -16,18 +15,18 @@ import { List, ListService } from './lists/list.service';
 export class AllListViewComponent implements OnInit {
   lists: Observable<List[]>;
   selectedId: number;
-
+ 
   constructor(
     private service: ListService,
-    private route: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.lists = this.route.params
-      .switchMap((params: Params) => {
-        this.selectedId = +params['id'];
-        return this.service.getLists();
-      });
+    this.lists = Observable.fromPromise(this.service.getLists());
+  }
+
+  onSelect(list: List) {
+    this.selectedId = list.id;
+    this.router.navigate(['/list',list.id]);
   }
 }

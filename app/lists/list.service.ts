@@ -20,6 +20,6 @@ export class ListService {
   }
   getList(id: number | string) {
     return listPromise
-      .then(lists => lists.find(list => list.id === +id));
+      .then(lists => lists.find(list => list.id === id));
   }
 }

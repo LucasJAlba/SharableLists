@@ -7,14 +7,14 @@ import { SettingsComponent } from './settings/settings.component';
 
 const appRoutes: Routes = [
   { path: 'all', component: AllListViewComponent },
-  { path: 'list', component: OneListViewComponent },
+  { path: 'list/:id', component: OneListViewComponent },
   { path: 'settings', component: SettingsComponent },
   { path: '', component: AllListViewComponent }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, {useHash: true})
   ],
   exports: [
     RouterModule
