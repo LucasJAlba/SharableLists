@@ -1,7 +1,9 @@
 import 'rxjs/add/operator/toPromise';
 
 import { Injectable } from '@angular/core';
-import { Headers, Http } from "@angular/http";
+import { Headers, Http, Response } from "@angular/http";
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 
 import { List } from './list';
 
@@ -9,6 +11,7 @@ import { List } from './list';
 export class ListService {
   private listUrl = "app/lists";
   private headers = new Headers({"Content-Type" : "application/json"});
+  private searchTerms = new Subject<string>();
 
   constructor(private http: Http) { }
 
@@ -23,7 +26,7 @@ export class ListService {
       .then(response => response.json().data as List[])
       .catch(this.handleError);
   }
-  
+
   getList(id: number | string): Promise<List> {
     id = +id;
     return this.getLists()
@@ -36,5 +39,11 @@ export class ListService {
       .toPromise()
       .then(res => res.json().data)
       .catch(this.handleError);
+  }
+
+  search(term: string): Observable<List[]> {
+    return this.http
+      .get(`${this.listUrl}/?name=${term}`)
+      .map((r: Response) => r.json().data as List[]);
   }
 }

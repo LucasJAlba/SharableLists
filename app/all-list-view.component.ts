@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Subject }           from 'rxjs/Subject';
 
 import { List } from './lists/list';
 import { ListService } from './lists/list.service';
@@ -12,8 +12,10 @@ import { ListService } from './lists/list.service';
   providers: [ListService]
 })
 export class AllListViewComponent implements OnInit {
-  lists: Observable<List[]>;
+  lists: List[];
+  searchLists: Observable<List[]>;
   selectedList : List;
+  private searchTerms = new Subject<string>();
  
   constructor(
     private listService: ListService,
@@ -21,7 +23,20 @@ export class AllListViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.lists = Observable.fromPromise(this.listService.getLists());
+    this.listService.getLists()
+      .then(lists => this.lists = lists);
+    
+    this.searchLists = this.searchTerms
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .switchMap(term => term
+          ? this.listService.search(term)
+          : Observable.of<List[]>([]))
+        .catch(error => {
+          console.log(error); // TODO
+          return Observable.of<List[]>([]);
+        });
+        
   }
 
   onSelect(list: List) {
@@ -29,11 +44,9 @@ export class AllListViewComponent implements OnInit {
     this.router.navigate(['/list',list.id]);
   }
 
-  trackByLists(index: number, list: List) { 
-    return list.id; 
-  }
+  trackByLists(index: number, list: List) { return list.id; }
 
-  // TODO: remove (here for development of list service)
+  // TODO: remove? (here for development of list service)
   add(name: string): void {
     name = name.trim();
     if (!name) {
@@ -41,8 +54,14 @@ export class AllListViewComponent implements OnInit {
     }
     this.listService.createList(name)
       .then( list => {
-        this.lists = Observable.fromPromise(this.listService.getLists());
+        this.listService.getLists()
+          .then(lists => this.lists = lists);
         this.selectedList = null;
       });
+  }
+
+  // TODO: remove? (here for development of list service)
+  search(term: string): void {
+    this.searchTerms.next(term);
   }
 }

@@ -1,17 +1,25 @@
-<div>All Lists view page</div>
+<h1>All Lists view page</h1>
+<h2>All lists</h2>
 <ul class="listItems">
-  <li *ngFor="let list of lists | async; trackBy:trackByLists">
+  <li *ngFor="let list of lists; trackBy:trackByLists">
     <span class="listName"><a (click)="onSelect(list)">{{ list.name }}</a></span>
   </li>
 </ul>
-<br />
-
 <div>
-	TODO: remove
-	<br />
 	<label>List name:</label> 
 	<input #listName />
-	<button (click)="add(listName.value); listName.value = ''">
+	<button (click)="add(listName.value); listName.value = ''; search(searchBox.value);">
 		Add
 	</button>
 </div>
+
+<br />
+
+<h2>Search Lists</h2>
+<input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+<ul class="listItems">
+  <li *ngFor="let list of searchLists | async; trackBy:trackByLists">
+    <span class="listName"><a (click)="onSelect(list)">{{ list.name }}</a></span>
+  </li>
+</ul>
+
