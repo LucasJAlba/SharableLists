@@ -1,0 +1,10 @@
+ul.nav {
+    background-color:$color-primary;
+    li {
+        a{
+            &.active{
+                border-bottom:1px solid #fff;
+            }
+        }
+    }
+}

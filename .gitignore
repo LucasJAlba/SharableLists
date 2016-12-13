@@ -1,3 +1,13 @@
 node_modules
 dist
 
+
+app/sass/.DS_Store
+
+app/sass/main.css.map
+
+app/sass/main.css.map
+
+*.map
+
+app/sass/main.css
